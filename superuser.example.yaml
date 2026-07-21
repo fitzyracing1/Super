@@ -32,6 +32,42 @@ cisco:
   #   AI_DEFENSE_API_MODE_LLM_ENDPOINT / AI_DEFENSE_API_MODE_LLM_API_KEY
   # agentsec_config_path: "agentsec.yaml"
 
+# Cisco Duo Agentic Identity: per-tool-call authorization (OAuth 2.1).
+# "Duo decides, the gateway enforces." Prefer env vars for client secrets.
+duo:
+  enabled: false
+  mode: enforce            # enforce | monitor | off
+  agent_id: "superuser-agent-1"
+  # token_url: "https://<tenant>.duosecurity.com/oauth/v1/token"
+  # client_id: "..."       # prefer DUO_CLIENT_ID env var
+  # client_secret: "..."   # prefer DUO_CLIENT_SECRET env var
+  # resource: "https://superuser.internal"   # RFC 8707 audience
+  # authorization_url: "https://.../authorize"  # optional decision endpoint
+  scopes:
+    - superuser.read
+    - superuser.exec
+  # Scope required to invoke each tool (scope-based access control):
+  tool_scopes:
+    system_status: superuser.read
+    disk_usage: superuser.read
+    list_processes: superuser.read
+    github_get_repo: superuser.read
+    github_list_issues: superuser.read
+    run_command: superuser.exec
+    github_create_issue_comment: superuser.write
+
+# Stripe usage-based billing: meter each successful tool call.
+stripe:
+  enabled: false
+  # api_key: "sk_live_..."   # prefer STRIPE_API_KEY env var
+  # customer_id: "cus_..."   # prefer STRIPE_CUSTOMER_ID env var
+  event_name: superuser_tool_call
+  default_value: 1
+  # Charge more for higher-risk actions:
+  per_tool_values:
+    run_command: 5
+    github_create_issue_comment: 3
+
 github:
   # Prefer GITHUB_TOKEN env var over putting the token here.
   allowed_repos:

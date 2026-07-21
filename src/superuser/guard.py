@@ -17,6 +17,8 @@ import logging
 from typing import Any, Callable
 
 from .audit import AuditLog
+from .authz import DuoAuthorizer
+from .billing import StripeMeter
 from .config import Config, Risk
 from .security import CiscoAIDefense
 
@@ -24,10 +26,19 @@ logger = logging.getLogger("superuser.guard")
 
 
 class Guard:
-    def __init__(self, config: Config, audit: AuditLog, defense: CiscoAIDefense) -> None:
+    def __init__(
+        self,
+        config: Config,
+        audit: AuditLog,
+        defense: CiscoAIDefense,
+        authorizer: DuoAuthorizer | None = None,
+        meter: StripeMeter | None = None,
+    ) -> None:
         self.config = config
         self.audit = audit
         self.defense = defense
+        self.authorizer = authorizer
+        self.meter = meter
 
     def run(
         self,
@@ -52,7 +63,22 @@ class Guard:
                 details=pre.reasons,
             )
 
-        # 2. Approval gate.
+        # 2. Duo Agentic Identity authorization (per-tool-call policy).
+        if self.authorizer is not None:
+            authz = self.authorizer.authorize(tool_name, args, risk_name)
+            if not authz.allowed:
+                self.audit.record(tool_name, args, decision="denied_by_duo",
+                                  status="denied", risk=risk_name, detail=authz.reason)
+                return _denied(
+                    tool_name,
+                    reason="Cisco Duo Agentic Identity denied this tool call.",
+                    risk=risk_name,
+                    details=[authz.reason],
+                )
+        else:
+            authz = None
+
+        # 3. Approval gate.
         if self.config.requires_approval(risk) and not confirm:
             self.audit.record(tool_name, args, decision="approval_required",
                               status="pending", risk=risk_name)
@@ -68,7 +94,7 @@ class Guard:
                 "arguments": args,
             }
 
-        # 3. Execute.
+        # 4. Execute.
         try:
             output = op()
         except Exception as exc:
@@ -77,7 +103,7 @@ class Guard:
             logger.exception("Tool %s failed", tool_name)
             return {"status": "error", "tool": tool_name, "error": str(exc)}
 
-        # 4. Post-execution (response) inspection.
+        # 5. Post-execution (response) inspection.
         response_payload = output if isinstance(output, dict) else {"result": output}
         post = self.defense.inspect_response(tool_name, _stringify_for_inspection(response_payload))
         if not post.safe:
@@ -90,15 +116,23 @@ class Guard:
                 details=post.reasons,
             )
 
-        # 5. Success audit.
+        # 6. Meter the successful call (best-effort; never blocks).
+        billing = self.meter.record(tool_name) if self.meter is not None else None
+
+        # 7. Success audit.
         self.audit.record(tool_name, args, decision="allowed", status="success", risk=risk_name)
-        return {
+        response: dict[str, Any] = {
             "status": "ok",
             "tool": tool_name,
             "risk": risk_name,
             "protected": pre.protected and post.protected,
             "result": output,
         }
+        if authz is not None:
+            response["governed"] = authz.governed
+        if billing is not None:
+            response["billed"] = billing.billed
+        return response
 
 
 def _denied(tool_name: str, *, reason: str, risk: str, details: list[str]) -> dict[str, Any]:

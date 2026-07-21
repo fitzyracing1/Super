@@ -8,6 +8,8 @@ from typing import Any
 from mcp.server.fastmcp import FastMCP
 
 from .audit import AuditLog
+from .authz import DuoAuthorizer
+from .billing import StripeMeter
 from .config import Config, Risk
 from .guard import Guard
 from .security import CiscoAIDefense
@@ -23,7 +25,9 @@ def build_server(config: Config | None = None) -> FastMCP:
     audit = AuditLog(config.audit_log_path, human_owner=config.human_owner)
     defense = CiscoAIDefense(config.cisco)
     defense.enable_runtime_protection()
-    guard = Guard(config, audit, defense)
+    authorizer = DuoAuthorizer(config.duo)
+    meter = StripeMeter(config.stripe)
+    guard = Guard(config, audit, defense, authorizer=authorizer, meter=meter)
     github_client = gh_tools.GitHubClient(config.github)
 
     mcp = FastMCP("superuser")
@@ -126,6 +130,8 @@ def build_server(config: Config | None = None) -> FastMCP:
                     "writes_allowed": config.github.allow_writes,
                 },
                 "cisco_ai_defense": defense.status,
+                "cisco_duo_agentic_identity": authorizer.status,
+                "stripe_billing": meter.status,
             },
         }
 

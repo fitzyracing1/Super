@@ -19,18 +19,41 @@ trail. So capabilities here always pass through a single choke point — the
 `Guard` — which enforces, in order:
 
 1. **Cisco AI Defense** inspects the tool call (can block).
-2. **Approval gate** — anything at or above `approval_required_at` (default
+2. **Cisco Duo Agentic Identity** authorizes the tool call per-policy (can block).
+3. **Approval gate** — anything at or above `approval_required_at` (default
    `MEDIUM`) needs an explicit `confirm=true` from a human.
-3. The operation runs.
-4. **Cisco AI Defense** inspects the response before it is returned (catches
+4. The operation runs.
+5. **Cisco AI Defense** inspects the response before it is returned (catches
    data leakage).
-5. The outcome is written to the **audit log** as
+6. **Stripe** meters the successful call (best-effort; never blocks).
+7. The outcome is written to the **audit log** as
    `human owner -> agent -> tool -> action -> outcome`.
 
 This mirrors the enterprise model: your app owns scoping + approvals + local
-audit; Cisco AI Defense provides runtime threat inspection at the MCP layer, and
-(in production) Cisco Duo Agentic Identity can enforce per-tool-call
-authorization through its MCP gateway.
+audit; **Cisco AI Defense** provides runtime threat inspection at the MCP layer;
+**Cisco Duo Agentic Identity** provides per-tool-call authorization tied to an
+accountable human owner; and **Stripe** turns metered tool calls into revenue.
+
+### Cisco Duo Agentic Identity (authorization)
+
+Duo follows a "Duo decides, the gateway enforces" model. This agent registers as
+a non-human identity, authenticates via the OAuth 2.1 **client-credentials**
+grant (with an RFC 8707 resource indicator), and authorizes every tool call
+either by matching the tool's required **scope** against what Duo granted, or by
+calling an explicit Duo **decision endpoint**. Set `DUO_ENABLED=true` plus
+`DUO_TOKEN_URL` / `DUO_CLIENT_ID` / `DUO_CLIENT_SECRET` (see `.env.example`). When
+Duo is not configured, calls are allowed but flagged `governed: false`; in
+`enforce` mode authorization errors fail closed.
+
+### Stripe usage-based billing (monetization)
+
+Each authorized, successful tool call emits a Stripe **meter event**
+(v2 billing meter events API), so the agent can be sold per-action. Configure a
+meter in Stripe, then set `STRIPE_ENABLED=true`, `STRIPE_API_KEY`,
+`STRIPE_CUSTOMER_ID`, and `STRIPE_METER_EVENT_NAME`. Per-tool weights let
+higher-risk actions cost more. Billing is best-effort: metering failures are
+logged and never block or fail the tool call (results are annotated
+`billed: true|false`).
 
 ## Tools
 
@@ -53,8 +76,10 @@ authorization through its MCP gateway.
 Requires Python 3.10+.
 
 ```bash
-pip install -e .              # core agent
+pip install -e .              # core agent (Duo authz uses requests; no extra dep)
 pip install -e '.[security]'  # + Cisco AI Defense SDK (cisco-aidefense-sdk)
+pip install -e '.[billing]'   # + Stripe SDK (usage-based billing)
+pip install -e '.[all]'       # security + billing
 pip install -e '.[dev]'       # + pytest / ruff
 ```
 
@@ -66,6 +91,8 @@ and set values. Key settings:
 - `SUPERUSER_HUMAN_OWNER` — the human accountable for the agent's actions.
 - `SUPERUSER_APPROVAL_AT` — risk threshold for the approval gate (`LOW`…`CRITICAL`).
 - `AI_DEFENSE_*` — Cisco AI Defense credentials/mode (see below).
+- `DUO_*` — Cisco Duo Agentic Identity authorization (see below).
+- `STRIPE_*` — Stripe usage-based billing (see below).
 - `GITHUB_TOKEN`, `GITHUB_ALLOWED_REPOS`, `GITHUB_ALLOW_WRITES` — least-privilege GitHub.
 
 ### Cisco AI Defense

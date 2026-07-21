@@ -37,14 +37,20 @@ def main(argv: list[str] | None = None) -> int:
     server = build_server(config)
 
     if args.check:
+        from .authz import DuoAuthorizer
+        from .billing import StripeMeter
         from .security import CiscoAIDefense
 
         defense = CiscoAIDefense(config.cisco)
+        authorizer = DuoAuthorizer(config.duo)
+        meter = StripeMeter(config.stripe)
         print("Superuser agent configuration OK.")
         print(f"  Human owner:          {config.human_owner}")
         print(f"  Approval required at: {config.approval_required_at.name}")
         print(f"  Audit log:            {config.audit_log_path}")
         print(f"  Cisco AI Defense:     {defense.status}")
+        print(f"  Cisco Duo (authz):    {authorizer.status}")
+        print(f"  Stripe billing:       {meter.status}")
         print(f"  GitHub configured:    {bool(config.github.token)}")
         return 0
 

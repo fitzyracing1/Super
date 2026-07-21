@@ -23,7 +23,10 @@ dependencies = [
 # Cisco AI Defense runtime guardrails. Imported lazily so the server still
 # runs (in an unprotected, clearly-warned state) when this is not installed.
 security = ["cisco-aidefense-sdk>=2.1.0"]
+# Stripe usage-based billing. Optional; metering degrades gracefully without it.
+billing = ["stripe>=11.0"]
 dev = ["pytest>=8.0", "ruff>=0.6"]
+all = ["cisco-aidefense-sdk>=2.1.0", "stripe>=11.0"]
 
 [project.scripts]
 superuser = "superuser.__main__:main"

@@ -1,0 +1,39 @@
+# Superuser agent configuration. Copy to a file and pass with
+# `superuser --config <file>` or set SUPERUSER_CONFIG.
+
+# Human accountable for this agent's actions (recorded in every audit entry).
+human_owner: "jane.doe@example.com"
+
+# Minimum risk level that triggers the human-approval gate.
+# One of: LOW, MEDIUM, HIGH, CRITICAL.
+approval_required_at: MEDIUM
+
+# Base commands that are treated as LOW risk (no approval needed).
+command_allowlist:
+  - ls
+  - cat
+  - df
+  - uptime
+  - whoami
+  - uname
+
+# Extra dangerous patterns to reject (merged with the built-in denylist).
+command_denylist:
+  - "rm -rf /*"
+
+command_timeout_seconds: 60
+audit_log_path: "superuser-audit.log"
+
+cisco:
+  enabled: true
+  mode: enforce            # enforce | monitor | off
+  # Prefer setting secrets via environment variables, not in this file:
+  #   AI_DEFENSE_INSPECTION_API_KEY
+  #   AI_DEFENSE_API_MODE_LLM_ENDPOINT / AI_DEFENSE_API_MODE_LLM_API_KEY
+  # agentsec_config_path: "agentsec.yaml"
+
+github:
+  # Prefer GITHUB_TOKEN env var over putting the token here.
+  allowed_repos:
+    - "your-org/your-repo"
+  allow_writes: false

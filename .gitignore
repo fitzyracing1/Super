@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets and local config
+.env
+agentsec.yaml
+superuser.yaml
+
+# Runtime artifacts
+superuser-audit.log
+*.log

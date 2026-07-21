@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "superuser"
+version = "0.1.0"
+description = "A permission-gated superuser (sysadmin) MCP agent with Cisco AI Defense runtime guardrails."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Super" }]
+keywords = ["mcp", "agent", "sysadmin", "superuser", "cisco", "ai-defense", "guardrails"]
+
+dependencies = [
+    "mcp>=1.2.0",
+    "psutil>=5.9",
+    "PyYAML>=6.0",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+# Cisco AI Defense runtime guardrails. Imported lazily so the server still
+# runs (in an unprotected, clearly-warned state) when this is not installed.
+security = ["cisco-aidefense-sdk>=2.1.0"]
+# Stripe usage-based billing. Optional; metering degrades gracefully without it.
+billing = ["stripe>=11.0"]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+all = ["cisco-aidefense-sdk>=2.1.0", "stripe>=11.0"]
+
+[project.scripts]
+superuser = "superuser.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

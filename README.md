@@ -95,6 +95,9 @@ and set values. Key settings:
 - `STRIPE_*` — Stripe usage-based billing (see below).
 - `GITHUB_TOKEN`, `GITHUB_ALLOWED_REPOS`, `GITHUB_ALLOW_WRITES` — least-privilege GitHub.
 
+> For a full console-value → env-var mapping for all three services, see
+> [`docs/INTEGRATIONS.md`](docs/INTEGRATIONS.md).
+
 ### Cisco AI Defense
 
 Install the SDK (`pip install 'superuser[security]'`) and provide credentials:

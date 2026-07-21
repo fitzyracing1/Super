@@ -3,324 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9x • Super</title>
+    <title>superuser • One look two fight three listen four break</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
         
-        :root {
-            --accent: #22d3ee;
-        }
-        
-        body {
-            font-family: 'Inter', system_ui, sans-serif;
-        }
-        
-        .font-display {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-weight: 600;
-            letter-spacing: -0.025em;
-        }
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; letter-spacing: -0.025em; }
 
-        .hero-bg {
-            background: radial-gradient(at center, #18181b 0%, #09090b 100%);
-        }
+        .hero-bg { background: radial-gradient(at center, #18181b 0%, #09090b 100%); }
+        .futuristic-grid { background-image: linear-gradient(rgba(63, 63, 70, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(63, 63, 70, 0.08) 1px, transparent 1px); background-size: 60px 60px; }
 
-        .section-header {
-            font-size: 2.25rem;
-            line-height: 1.1;
-            font-weight: 700;
+        .protocol-line {
+            font-family: 'Space Grotesk', sans-serif;
             letter-spacing: -0.04em;
+            line-height: 1.05;
         }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+        .section-header { font-size: 2.25rem; line-height: 1.1; font-weight: 700; letter-spacing: -0.04em; }
 
-        .nav-link {
-            transition: color 0.2s ease;
-        }
-        .nav-link:hover {
-            color: #22d3ee;
-        }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-link { transition: color 0.2s ease; }
+        .nav-link:hover { color: #f87171; }
 
-        .feature-card {
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                       box-shadow 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
-                       border-color 0.3s ease;
-        }
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-            border-color: rgba(34, 211, 238, 0.3);
-        }
+        .feature-card { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), border-color 0.3s ease; }
+        .feature-card:hover { transform: translateY(-6px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); border-color: rgba(248, 113, 113, 0.3); }
 
-        .stat-number {
-            font-variant-numeric: tabular-nums;
+        .guard-step {
+            transition: all 0.2s ease;
         }
+        .guard-step:hover { transform: translateY(-2px); }
 
-        .super-glow {
-            box-shadow: 0 0 15px rgba(103, 232, 249, 0.15);
-        }
-
-        .gradient-text {
-            background: linear-gradient(90deg, #22d3ee, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-
-        .futuristic-grid {
-            background-image: 
-                linear-gradient(rgba(63, 63, 70, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(63, 63, 70, 0.08) 1px, transparent 1px);
-            background-size: 60px 60px;
-        }
+        .danger { color: #f87171; }
+        .success { color: #4ade80; }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-200">
     <!-- Navbar -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-lg border-b border-white/10">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/90 backdrop-blur-lg border-b border-white/10">
         <div class="max-w-screen-xl mx-auto px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-x-3">
                 <div class="flex items-center gap-x-2">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center">
-                        <span class="text-zinc-950 font-bold text-2xl tracking-tighter">9</span>
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center">
+                        <span class="text-white font-bold text-2xl tracking-tighter">S</span>
                     </div>
                     <div>
-                        <span class="font-display text-3xl font-semibold tracking-tighter">9x</span>
+                        <span class="font-display text-3xl font-semibold tracking-tighter">superuser</span>
                     </div>
                 </div>
+                <div class="hidden sm:block px-3 py-1 text-[10px] font-mono tracking-[2px] bg-white/5 border border-white/10 rounded-full text-red-400">MCP AGENT</div>
             </div>
             
             <div class="hidden md:flex items-center gap-x-8 text-sm">
-                <a href="#about" class="nav-link text-zinc-400 hover:text-white font-medium">About</a>
-                <a href="#capabilities" class="nav-link text-zinc-400 hover:text-white font-medium">Capabilities</a>
-                <a href="#super" class="nav-link text-zinc-400 hover:text-white font-medium">Super</a>
+                <a href="#protocol" class="nav-link text-zinc-400 hover:text-white font-medium">Protocol</a>
+                <a href="#guard" class="nav-link text-zinc-400 hover:text-white font-medium">Guard Pipeline</a>
+                <a href="#tools" class="nav-link text-zinc-400 hover:text-white font-medium">Tools</a>
+                <a href="#quickstart" class="nav-link text-zinc-400 hover:text-white font-medium">Quickstart</a>
             </div>
 
             <div class="flex items-center gap-x-3">
-                <a href="https://github.com/fitzyracing1/Super" target="_blank" 
-                   class="flex items-center gap-x-2 px-4 py-2 text-sm font-medium rounded-2xl border border-white/20 hover:bg-white/5 transition-colors">
+                <a href="https://github.com/fitzyracing1/Super" target="_blank" class="flex items-center gap-x-2 px-4 py-2 text-sm font-medium rounded-2xl border border-white/20 hover:bg-white/5 transition-colors">
                     <i class="fab fa-github text-lg"></i>
                     <span class="hidden sm:inline">GitHub</span>
                 </a>
-                <a href="#contact" 
-                   class="px-5 py-2 text-sm font-semibold bg-white text-zinc-950 rounded-2xl hover:bg-zinc-200 transition-colors flex items-center gap-x-2">
-                    <span>Contact</span>
+                <a href="#quickstart" class="px-5 py-2 text-sm font-semibold bg-white text-zinc-950 rounded-2xl hover:bg-zinc-100 transition-colors flex items-center gap-x-2">
+                    <span>Get Started</span>
                 </a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero with the required line at top -->
     <header class="pt-16 min-h-[100dvh] flex items-center hero-bg relative overflow-hidden">
-        <div class="absolute inset-0 futuristic-grid opacity-40"></div>
+        <div class="absolute inset-0 futuristic-grid opacity-30"></div>
+        
         <div class="max-w-screen-xl mx-auto px-6 relative z-10">
-            <div class="max-w-3xl">
-                <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 mb-6">
-                    <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                    <span class="text-xs font-medium tracking-[3px] text-cyan-400">EST. LEGACY • BUILT FOR THE FUTURE</span>
+            <!-- THE LINE THE USER REQUESTED -->
+            <div class="mb-8">
+                <div class="inline-flex items-center gap-x-2 px-5 py-2 rounded-3xl border border-red-500/30 bg-red-950/30 mb-4">
+                    <i class="fas fa-shield-halved text-red-400"></i>
+                    <span class="text-xs font-mono tracking-[4px] text-red-400 font-semibold">GUARD PROTOCOL</span>
                 </div>
-                
-                <h1 class="font-display text-[92px] md:text-[120px] leading-[0.9] tracking-[-0.06em] font-semibold">
-                    9<span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-500">x</span>
+                <h1 class="protocol-line text-6xl md:text-7xl lg:text-8xl font-semibold tracking-[-0.05em] text-white leading-none">
+                    One look<br>two fight<br>three listen<br>four break
                 </h1>
+                <p class="mt-4 max-w-md text-xl text-zinc-400">The four-phase security mantra that turns a dangerous superuser into a governable, auditable, enterprise-ready agent.</p>
+            </div>
+
+            <div class="max-w-2xl">
+                <div class="flex items-center gap-x-3 mb-6">
+                    <div class="px-4 py-1.5 rounded-2xl bg-white/5 border border-white/10 text-sm font-medium flex items-center gap-x-2">
+                        <i class="fas fa-robot text-red-400"></i>
+                        <span>MCP • Model Context Protocol</span>
+                    </div>
+                    <div class="px-4 py-1.5 rounded-2xl bg-white/5 border border-white/10 text-sm font-medium">Python 3.10+</div>
+                </div>
+
+                <h2 class="font-display text-6xl md:text-7xl tracking-[-0.06em] leading-none font-semibold">
+                    superuser<br><span class="text-red-400">MCP agent</span>
+                </h2>
                 
-                <p class="mt-4 max-w-md text-3xl md:text-4xl font-semibold tracking-tighter text-white">
-                    Super.<br>Amplified.<br>Infinite.
-                </p>
-                
-                <p class="mt-6 max-w-lg text-xl text-zinc-400">
-                    We multiply potential. We build at the edge. 
-                    A new kind of company where legacy meets frontier technology.
-                </p>
+                <p class="mt-6 max-w-lg text-2xl text-zinc-300">Real sysadmin powers for AI agents.<br>Wrapped in layers that actually ship.</p>
 
                 <div class="mt-10 flex flex-col sm:flex-row gap-4">
-                    <a href="#capabilities" 
-                       class="group inline-flex items-center justify-center gap-x-3 px-8 py-4 text-lg font-semibold bg-white text-zinc-950 rounded-3xl hover:bg-zinc-100 active:bg-zinc-200 transition-all">
-                        <span>Explore Capabilities</span>
+                    <a href="#guard" class="group inline-flex items-center justify-center gap-x-3 px-9 py-4 text-lg font-semibold bg-white text-zinc-950 rounded-3xl hover:bg-zinc-100 active:bg-zinc-200 transition-all">
+                        <span>See the Guard Pipeline</span>
                         <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                     </a>
-                    
-                    <a href="https://github.com/fitzyracing1/Super" target="_blank"
-                       class="inline-flex items-center justify-center gap-x-3 px-8 py-4 text-lg font-semibold border border-white/30 hover:bg-white/5 rounded-3xl transition-all">
+                    <a href="https://github.com/fitzyracing1/Super" target="_blank" class="inline-flex items-center justify-center gap-x-3 px-9 py-4 text-lg font-semibold border border-white/30 hover:bg-white/5 rounded-3xl transition-all">
                         <i class="fab fa-github"></i>
                         <span>View on GitHub</span>
                     </a>
                 </div>
 
-                <div class="mt-12 flex items-center gap-x-8 text-sm">
-                    <div class="flex -space-x-2">
-                        <div class="w-7 h-7 rounded-full bg-zinc-800 border border-zinc-700 ring-1 ring-zinc-950"></div>
-                        <div class="w-7 h-7 rounded-full bg-zinc-700 border border-zinc-600 ring-1 ring-zinc-950"></div>
-                        <div class="w-7 h-7 rounded-full bg-zinc-600 border border-zinc-500 ring-1 ring-zinc-950"></div>
+                <div class="mt-8 text-xs text-zinc-500 flex items-center gap-x-4">
+                    <div class="flex items-center gap-x-1.5">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span>16 tests passing • ruff clean</span>
                     </div>
-                    <div class="text-zinc-500 text-xs tracking-widest">JOINING THE NEXT WAVE OF BUILDERS</div>
+                    <span class="hidden sm:inline">•</span>
+                    <span class="hidden sm:inline">Active PRs on feature branches</span>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Subtle scroll indicator -->
-        <div class="absolute bottom-10 left-1/2 hidden md:block">
-            <div class="flex flex-col items-center gap-y-1 text-[10px] tracking-[2px] text-zinc-500">
-                <div>SCROLL TO BEGIN</div>
-                <i class="fas fa-chevron-down text-xs animate-bounce"></i>
             </div>
         </div>
     </header>
 
-    <!-- About Section -->
-    <section id="about" class="max-w-screen-xl mx-auto px-6 pt-20 pb-16">
-        <div class="grid md:grid-cols-12 gap-x-12 gap-y-10 items-center">
-            <div class="md:col-span-5">
-                <div class="sticky top-24">
-                    <div class="text-cyan-400 text-sm font-semibold tracking-[3px] mb-3">OUR STORY</div>
-                    <h2 class="section-header tracking-tighter">A multiplier<br>for the<br>extraordinary.</h2>
+    <!-- Protocol Section -->
+    <section id="protocol" class="max-w-screen-xl mx-auto px-6 pt-16 pb-12 border-b border-white/10">
+        <div class="max-w-3xl">
+            <div class="text-red-400 text-sm font-semibold tracking-[3px] mb-2">THE CORE MANTRA</div>
+            <h2 class="section-header tracking-tighter mb-6">One look two fight three listen four break</h2>
+            <p class="text-xl text-zinc-400">This is not marketing copy. It is the literal sequence every tool call must survive before it reaches your machine or GitHub.</p>
+        </div>
+
+        <div class="mt-10 grid md:grid-cols-4 gap-4">
+            <div class="glass rounded-3xl p-6 border border-white/10">
+                <div class="text-5xl font-bold text-red-400/80 mb-4">01</div>
+                <div class="font-semibold text-xl mb-2">LOOK</div>
+                <div class="text-sm text-zinc-400">Cisco AI Defense inspects the incoming tool call for threats, prompt injection, or policy violations.</div>
+            </div>
+            <div class="glass rounded-3xl p-6 border border-white/10">
+                <div class="text-5xl font-bold text-red-400/80 mb-4">02</div>
+                <div class="font-semibold text-xl mb-2">FIGHT</div>
+                <div class="text-sm text-zinc-400">Duo Agentic Identity + policy engine authorizes (or blocks) based on scope, human owner, and risk level.</div>
+            </div>
+            <div class="glass rounded-3xl p-6 border border-white/10">
+                <div class="text-5xl font-bold text-red-400/80 mb-4">03</div>
+                <div class="font-semibold text-xl mb-2">LISTEN</div>
+                <div class="text-sm text-zinc-400">Approval gate + append-only audit log. Risky actions require explicit human <span class="font-mono text-xs bg-white/10 px-1.5 py-px rounded">confirm=true</span>.</div>
+            </div>
+            <div class="glass rounded-3xl p-6 border border-white/10">
+                <div class="text-5xl font-bold text-red-400/80 mb-4">04</div>
+                <div class="font-semibold text-xl mb-2">BREAK</div>
+                <div class="text-sm text-zinc-400">Dangerous commands are denied by denylist. Leaking responses are caught by post-execution AI Defense inspection.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guard Pipeline -->
+    <section id="guard" class="max-w-screen-xl mx-auto px-6 py-16 bg-zinc-900/60 border-y border-white/10">
+        <div class="max-w-2xl mb-10">
+            <div class="text-red-400 text-sm font-semibold tracking-[3px] mb-2">THE CHOKE POINT</div>
+            <h2 class="section-header tracking-tighter">Every action passes through one Guard.</h2>
+            <p class="mt-4 text-zinc-400">No tool runs unless it survives the full layered pipeline. The agent is powerful exactly because it is heavily constrained.</p>
+        </div>
+
+        <div class="space-y-4 max-w-3xl">
+            <div class="flex gap-4 items-start glass rounded-3xl p-6 border border-white/10 guard-step">
+                <div class="w-8 h-8 flex-shrink-0 rounded-2xl bg-red-500/10 text-red-400 flex items-center justify-center font-mono text-sm font-bold">1</div>
+                <div>
+                    <div class="font-semibold">Cisco AI Defense</div>
+                    <div class="text-sm text-zinc-400">Runtime inspection of tool calls + responses. Can block in enforce mode. Degrades gracefully with annotation.</div>
                 </div>
             </div>
-            
-            <div class="md:col-span-7 text-[15px] leading-relaxed text-zinc-400 space-y-6">
-                <p>9x exists to multiply human potential through technology. We are not just another startup — we are a new category of company that blends deep heritage with radical innovation.</p>
-                
-                <p>Our roots trace back to 1924 through pioneering community lending. Today, that same spirit of empowerment drives everything we do: building AI systems that understand context and intent, fintech tools that expand access, space hardware concepts, and quantum-inspired sensing technologies.</p>
-
-                <p>We move fast. We build in the open. And we design every product, every line of code, and every experience to deliver <span class="font-semibold text-white">9x the impact</span>.</p>
-
-                <div class="pt-4">
-                    <a href="#super" class="inline-flex items-center text-sm font-medium text-cyan-400 hover:text-cyan-300 group">
-                        See how Super powers our presence 
-                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
-                    </a>
+            <div class="flex gap-4 items-start glass rounded-3xl p-6 border border-white/10 guard-step">
+                <div class="w-8 h-8 flex-shrink-0 rounded-2xl bg-red-500/10 text-red-400 flex items-center justify-center font-mono text-sm font-bold">2</div>
+                <div>
+                    <div class="font-semibold">Cisco Duo Agentic Identity</div>
+                    <div class="text-sm text-zinc-400">Per-tool-call authorization tied to a real human owner via OAuth 2.1 client-credentials. Fails closed.</div>
+                </div>
+            </div>
+            <div class="flex gap-4 items-start glass rounded-3xl p-6 border border-white/10 guard-step">
+                <div class="w-8 h-8 flex-shrink-0 rounded-2xl bg-red-500/10 text-red-400 flex items-center justify-center font-mono text-sm font-bold">3</div>
+                <div>
+                    <div class="font-semibold">Approval Gate + Denylist</div>
+                    <div class="text-sm text-zinc-400">Anything ≥ MEDIUM risk requires explicit human confirmation. Hard denylist for obviously destructive commands.</div>
+                </div>
+            </div>
+            <div class="flex gap-4 items-start glass rounded-3xl p-6 border border-white/10 guard-step">
+                <div class="w-8 h-8 flex-shrink-0 rounded-2xl bg-red-500/10 text-red-400 flex items-center justify-center font-mono text-sm font-bold">4</div>
+                <div>
+                    <div class="font-semibold">Stripe Billing + Audit Log</div>
+                    <div class="text-sm text-zinc-400">Usage metered per successful call (best-effort). Every decision recorded as immutable <span class="font-mono text-xs">human → agent → tool → outcome</span>.</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Capabilities Section -->
-    <section id="capabilities" class="bg-zinc-900/60 py-16 border-y border-white/10">
+    <!-- Tools -->
+    <section id="tools" class="max-w-screen-xl mx-auto px-6 py-16">
+        <div class="flex flex-col items-center text-center mb-10">
+            <div class="text-red-400 text-sm font-semibold tracking-[3px] mb-2">EXPOSED TOOLS</div>
+            <h2 class="section-header tracking-tighter max-w-lg">Powerful capabilities.<br>Strictly gated.</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="feature-card glass rounded-3xl p-6 border border-white/10">
+                <div class="flex items-center gap-x-3 mb-4"><i class="fas fa-server text-xl text-emerald-400"></i><span class="font-semibold">system_status / disk_usage / list_processes</span></div>
+                <div class="text-sm text-zinc-400">Read-only system inspection. Always LOW risk.</div>
+                <div class="mt-4 text-[10px] text-emerald-400 font-mono">LOW</div>
+            </div>
+            <div class="feature-card glass rounded-3xl p-6 border border-white/10">
+                <div class="flex items-center gap-x-3 mb-4"><i class="fas fa-terminal text-xl text-red-400"></i><span class="font-semibold">run_command</span></div>
+                <div class="text-sm text-zinc-400">Full shell execution with denylist, approval gate, and post-run inspection. HIGH unless allowlisted.</div>
+                <div class="mt-4 text-[10px] text-red-400 font-mono">HIGH (with guardrails)</div>
+            </div>
+            <div class="feature-card glass rounded-3xl p-6 border border-white/10">
+                <div class="flex items-center gap-x-3 mb-4"><i class="fab fa-github text-xl text-sky-400"></i><span class="font-semibold">github_* tools</span></div>
+                <div class="text-sm text-zinc-400">get_repo, list_issues, create_issue_comment. Least-privilege + allowlist only. Write actions require approval.</div>
+                <div class="mt-4 text-[10px] text-sky-400 font-mono">LOW / HIGH</div>
+            </div>
+            <div class="feature-card glass rounded-3xl p-6 border border-white/10">
+                <div class="flex items-center gap-x-3 mb-4"><i class="fas fa-shield-halved text-xl text-violet-400"></i><span class="font-semibold">security_status</span></div>
+                <div class="text-sm text-zinc-400">Live report of all active guardrails, AI Defense mode, Duo governance, billing status, and config health.</div>
+                <div class="mt-4 text-[10px] text-violet-400 font-mono">—</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quickstart -->
+    <section id="quickstart" class="bg-zinc-900/60 border-y border-white/10 py-16">
         <div class="max-w-screen-xl mx-auto px-6">
-            <div class="flex flex-col items-center text-center mb-12">
-                <div class="px-4 py-1 rounded-full bg-white/5 text-xs tracking-[3px] font-medium border border-white/10 mb-4">WHAT WE BUILD</div>
-                <h2 class="section-header max-w-lg tracking-tighter text-center">Capabilities that scale<br>at the speed of thought.</h2>
+            <div class="max-w-2xl mb-10">
+                <div class="text-red-400 text-sm font-semibold tracking-[3px] mb-2">GET STARTED IN SECONDS</div>
+                <h2 class="section-header tracking-tighter">Install • Configure • Run</h2>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-                <!-- Card 1: AI -->
-                <div class="feature-card glass rounded-3xl p-7 border border-white/10 group">
-                    <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-cyan-400/10 text-cyan-400 mb-6 group-hover:bg-cyan-400/20 transition-colors">
-                        <i class="fas fa-brain fa-2x"></i>
-                    </div>
-                    <h3 class="font-semibold text-2xl tracking-tight mb-3">AI &amp; Entity Intelligence</h3>
-                    <p class="text-zinc-400 text-[15px] leading-relaxed">Proprietary weighted modeling, real-time entity extraction, and contextual search systems. Built to tag, understand, and connect everything — from people to projects to possibilities.</p>
-                    <div class="mt-6 text-xs uppercase tracking-widest text-cyan-400/70 font-medium">3XB PLATFORM</div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass rounded-3xl p-8 border border-white/10">
+                    <div class="font-mono text-sm mb-4 text-zinc-400"># Install</div>
+                    <pre class="bg-black/60 p-4 rounded-2xl text-sm overflow-auto"><code>pip install -e '.[all]'
+# or with dev tools
+pip install -e '.[all,dev]'</code></pre>
+                    <div class="mt-6 text-xs text-zinc-500">Requires Python 3.10+. Optional: cisco-aidefense-sdk + stripe</div>
                 </div>
-
-                <!-- Card 2: Fintech -->
-                <div class="feature-card glass rounded-3xl p-7 border border-white/10 group">
-                    <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-violet-400/10 text-violet-400 mb-6 group-hover:bg-violet-400/20 transition-colors">
-                        <i class="fas fa-handshake fa-2x"></i>
-                    </div>
-                    <h3 class="font-semibold text-2xl tracking-tight mb-3">Community Fintech</h3>
-                    <p class="text-zinc-400 text-[15px] leading-relaxed">Next-generation lending, alternative credit systems, and community-powered financial tools. Reviving and modernizing century-old principles for the digital age with transparency and inclusion at the core.</p>
-                    <div class="mt-6 text-xs uppercase tracking-widest text-violet-400/70 font-medium">LEGACY REIMAGINED</div>
-                </div>
-
-                <!-- Card 3: Space -->
-                <div class="feature-card glass rounded-3xl p-7 border border-white/10 group">
-                    <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-amber-400/10 text-amber-400 mb-6 group-hover:bg-amber-400/20 transition-colors">
-                        <i class="fas fa-rocket fa-2x"></i>
-                    </div>
-                    <h3 class="font-semibold text-2xl tracking-tight mb-3">Space &amp; Autonomous Systems</h3>
-                    <p class="text-zinc-400 text-[15px] leading-relaxed">Conceptual spacecraft, modular habitat systems, nanocraft sensors, and autonomous robotics platforms. From garage prototypes to orbital ambitions — we design the hardware of tomorrow.</p>
-                    <div class="mt-6 text-xs uppercase tracking-widest text-amber-400/70 font-medium">HARDWARE FIRST</div>
-                </div>
-
-                <!-- Card 4: Quantum -->
-                <div class="feature-card glass rounded-3xl p-7 border border-white/10 group">
-                    <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-emerald-400/10 text-emerald-400 mb-6 group-hover:bg-emerald-400/20 transition-colors">
-                        <i class="fas fa-atom fa-2x"></i>
-                    </div>
-                    <h3 class="font-semibold text-2xl tracking-tight mb-3">Quantum &amp; Molecular Spin</h3>
-                    <p class="text-zinc-400 text-[15px] leading-relaxed">Room-temperature quantum sensing and processing architectures. Organic spin systems, ODMR protocols, and next-gen detection hardware for defense, navigation, and fundamental science.</p>
-                    <div class="mt-6 text-xs uppercase tracking-widest text-emerald-400/70 font-medium">QUANTUM EDGE</div>
+                <div class="glass rounded-3xl p-8 border border-white/10">
+                    <div class="font-mono text-sm mb-4 text-zinc-400"># Run the MCP server</div>
+                    <pre class="bg-black/60 p-4 rounded-2xl text-sm overflow-auto"><code>superuser --check   # validate config
+superuser           # start stdio MCP server</code></pre>
+                    <div class="mt-4 text-xs text-emerald-400">16 tests • ruff clean • end-to-end verified</div>
                 </div>
             </div>
+
+            <div class="mt-8 text-center text-xs text-zinc-500">See <span class="font-mono">.env.example</span>, <span class="font-mono">superuser.example.yaml</span>, and open PRs for full integration setup (Cisco, Duo, Stripe).</div>
         </div>
     </section>
 
-    <!-- Super Section -->
-    <section id="super" class="max-w-screen-xl mx-auto px-6 py-20">
-        <div class="max-w-2xl mx-auto text-center">
-            <div class="inline-block px-5 py-1.5 rounded-2xl bg-gradient-to-r from-cyan-400/10 to-violet-500/10 border border-cyan-400/20 mb-6">
-                <span class="text-cyan-400 text-xs tracking-[4px] font-semibold">OPEN SOURCE • GITHUB PAGES</span>
+    <!-- Footer / Status -->
+    <footer class="border-t border-white/10 py-10">
+        <div class="max-w-screen-xl mx-auto px-6 text-center text-xs text-zinc-500">
+            <div class="mb-3">superuser • Built for safety at the edge • Apache-2.0</div>
+            <div class="flex justify-center gap-x-6">
+                <a href="https://github.com/fitzyracing1/Super" class="hover:text-zinc-300">GitHub Repository</a>
+                <a href="https://github.com/fitzyracing1/Super/pull/1" class="hover:text-zinc-300">PR #1 — Core Agent</a>
+                <a href="https://github.com/fitzyracing1/Super/pull/2" class="hover:text-zinc-300">PR #2 — Dev Environment</a>
             </div>
-            
-            <h2 class="section-header tracking-tighter mb-4">This is Super.</h2>
-            <p class="text-xl text-zinc-400 max-w-md mx-auto">The repository you're viewing right now powers this entire website. Super is our transparent, version-controlled digital presence — built fast, iterated in public, and designed to be forked, improved, and extended.</p>
-            
-            <div class="mt-8 flex justify-center">
-                <a href="https://github.com/fitzyracing1/Super" target="_blank"
-                   class="group inline-flex items-center gap-x-4 px-9 py-4 rounded-3xl border border-white/20 hover:border-white/40 transition-all text-sm font-semibold">
-                    <span>EXPLORE THE SUPER REPO</span>
-                    <i class="fab fa-github text-xl group-hover:scale-110 transition-transform"></i>
-                </a>
-            </div>
-
-            <div class="mt-16 pt-10 border-t border-white/10 text-xs text-zinc-500 max-w-xs mx-auto">
-                Every commit to <span class="font-mono text-zinc-400">main</span> automatically updates this site. 
-                No servers. No build pipelines. Just pure GitHub magic.
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA / Contact -->
-    <section id="contact" class="bg-zinc-900 border-t border-white/10 py-16">
-        <div class="max-w-screen-xl mx-auto px-6 text-center">
-            <h2 class="font-display text-5xl tracking-tighter mb-4">Ready to go 9x?</h2>
-            <p class="max-w-md mx-auto text-zinc-400 text-lg">Whether you're an investor, collaborator, builder, or dreamer — we'd love to hear from you.</p>
-            
-            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://x.com/fitzyracing1" target="_blank"
-                   class="inline-flex items-center justify-center gap-x-3 px-8 py-[17px] text-base font-semibold rounded-3xl bg-white text-zinc-950 hover:bg-zinc-100 transition">
-                    <i class="fab fa-x-twitter"></i>
-                    <span>Message on X</span>
-                </a>
-                
-                <a href="https://github.com/fitzyracing1/Super/issues/new" target="_blank"
-                   class="inline-flex items-center justify-center gap-x-3 px-8 py-[17px] text-base font-semibold rounded-3xl border border-white/30 hover:bg-white/5 transition">
-                    <span>Open an Issue</span>
-                </a>
-            </div>
-
-            <div class="mt-12 text-[10px] tracking-widest text-zinc-500">NEW BEDFORD, MA • EARTH • BEYOND</div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="border-t border-white/10 py-8">
-        <div class="max-w-screen-xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-y-4 text-xs text-zinc-500">
-            <div>© 2026 9x. All rights supercharged.</div>
-            
-            <div class="flex items-center gap-x-6">
-                <a href="https://github.com/fitzyracing1/Super" class="hover:text-zinc-300 transition-colors">GitHub Repository</a>
-                <a href="https://github.com/fitzyracing1" class="hover:text-zinc-300 transition-colors">Profile</a>
-                <span class="text-white/30">•</span>
-                <span>Built with precision &amp; AI</span>
-            </div>
+            <div class="mt-6 text-[10px] tracking-widest">ONE LOOK • TWO FIGHT • THREE LISTEN • FOUR BREAK</div>
         </div>
     </footer>
 
     <script>
-        // Tailwind script
         function initializeTailwind() {
-            document.documentElement.style.setProperty('--accent', '#22d3ee');
-            
-            // Optional: subtle interactive enhancement
-            const cards = document.querySelectorAll('.feature-card');
+            const cards = document.querySelectorAll('.feature-card, .guard-step');
             cards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
@@ -328,13 +283,10 @@
                     const y = ((e.clientY - rect.top) / rect.height) * 100;
                     card.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.06) 0%, transparent 60%)`;
                 });
-                card.addEventListener('mouseleave', () => {
-                    card.style.background = '';
-                });
+                card.addEventListener('mouseleave', () => { card.style.background = ''; });
             });
         }
 
-        // Smooth scroll for anchor links
         function setupSmoothScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
@@ -342,35 +294,18 @@
                     if (target) {
                         e.preventDefault();
                         const navHeight = 64;
-                        const elementPosition = target.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.scrollY - navHeight;
-                        
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
+                        const offsetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight;
+                        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
                     }
                 });
             });
         }
 
-        // Boot everything
         window.onload = function() {
             initializeTailwind();
             setupSmoothScroll();
-            
-            // Easter egg: console message
-            console.log('%c[9x] Super site initialized. Welcome to the future.', 'color:#64748b; font-size:9px');
+            console.log('%c[superuser] Site initialized with guard protocol.', 'color:#64748b; font-size:9px');
         };
-
-        // Keyboard shortcut hint (optional)
-        document.addEventListener('keydown', function(e) {
-            if (e.key === '/' && document.activeElement.tagName === 'BODY') {
-                e.preventDefault();
-                const about = document.getElementById('about');
-                if (about) about.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
     </script>
 </body>
 </html>

@@ -1,33 +1,28 @@
 # Super
 
-**Official website for 9x** — the company building the future at 9x the speed, scale, and impact.
+**superuser** — A permission-gated superuser (sysadmin) agent exposed over the Model Context Protocol (MCP).
 
-This repository hosts the static site deployed via GitHub Pages.
+Gives an AI agent real system-administration powers while wrapping every action in enterprise-grade guardrails: Cisco AI Defense inspection, Cisco Duo Agentic Identity authorization, human approval gates, dangerous-command denylist, append-only audit logging, and Stripe usage-based billing.
+
+**One look two fight three listen four break**
+
+The core guard protocol that makes powerful agents shippable and safe.
 
 ## Live Site
+https://fitzyracing1.github.io/Super/
 
-Once GitHub Pages is enabled:
-- **URL**: https://fitzyracing1.github.io/Super/
+## Project
 
-## How to Enable GitHub Pages
+See the detailed README on the active development branch or the open PRs for full architecture, tools, setup, and verification:
 
-1. Go to repository **Settings** → **Pages**
-2. Under "Build and deployment"
-   - **Source**: Deploy from a branch
-   - **Branch**: `main`
-   - **Folder**: `/ (root)`
-3. Save and wait 1-2 minutes for deployment.
+- PR #1: Superuser MCP agent with Cisco AI Defense + Duo authz + Stripe billing
+- PR #2: Cursor Cloud dev environment + AGENTS.md
 
-The site is a clean, modern, fully responsive single-page application built with Tailwind CSS. Perfect starting point for branding, portfolio, or company presence.
+This GitHub Pages site is the public face of the project. The real implementation lives on feature branches and will be merged to main.
 
-## Customize
+## Quick Links
+- [Open PR #1](https://github.com/fitzyracing1/Super/pull/1)
+- [Open PR #2](https://github.com/fitzyracing1/Super/pull/2)
+- Branch: `cursor/superuser-mcp-agent-1ae7`
 
-- Edit `index.html` directly in the repo
-- Add your own images, sections, or branding
-- Re-deploy happens automatically on push to main
-
-Built for speed. Designed for super results.
-
----
-
-*Part of the 9x ecosystem — legacy meets frontier tech.*
+Built for safety at scale. Designed for the frontier.

@@ -60,6 +60,7 @@
                 <a href="#guard" class="nav-link text-zinc-400 hover:text-white font-medium">Guard Pipeline</a>
                 <a href="#tools" class="nav-link text-zinc-400 hover:text-white font-medium">Tools</a>
                 <a href="#quickstart" class="nav-link text-zinc-400 hover:text-white font-medium">Quickstart</a>
+                <a href="RULES.md" class="nav-link text-red-400 hover:text-red-300 font-medium">Ruleset</a>
             </div>
 
             <div class="flex items-center gap-x-3">
@@ -260,7 +261,7 @@ superuser           # start stdio MCP server</code></pre>
         </div>
     </section>
 
-    <!-- NEW SECTION: Accepted PRs update the public site -->
+    <!-- Accepted PR section with link to RULES.md -->
     <section class="max-w-screen-xl mx-auto px-6 py-16 border-t border-white/10">
         <div class="max-w-3xl mx-auto text-center">
             <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-2xl border border-red-500/30 bg-red-950/20 mb-6">
@@ -270,7 +271,14 @@ superuser           # start stdio MCP server</code></pre>
             
             <h2 class="section-header tracking-tighter mb-4">On accepted PR → we write, it stays public.</h2>
             
-            <p class="text-xl text-zinc-400 max-w-2xl mx-auto">Edit the site or agent code, open a PR, get it accepted and merged to <span class="font-mono">main</span>. GitHub Pages automatically redeploys the updated site within minutes. Everything remains fully public and auditable — no private deploys, no hidden state. The same "One look two fight three listen four break" discipline that protects the agent protects every public update.</p>
+            <p class="text-xl text-zinc-400 max-w-2xl mx-auto">Edit the site or agent code, open a PR, get it accepted and merged to <span class="font-mono">main</span>. GitHub Pages automatically redeploys the updated site within minutes. Everything remains fully public and auditable.</p>
+            
+            <div class="mt-6">
+                <a href="RULES.md" class="inline-flex items-center justify-center gap-x-3 px-8 py-3.5 text-sm font-semibold bg-red-500/10 border border-red-500/30 hover:bg-red-500/20 text-red-400 rounded-3xl transition-all">
+                    <i class="fas fa-book"></i>
+                    <span>View the full listed Ruleset (RULES.md)</span>
+                </a>
+            </div>
             
             <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="CONTRIBUTING.md" class="inline-flex items-center justify-center gap-x-3 px-8 py-3.5 text-sm font-semibold border border-white/30 hover:bg-white/5 rounded-3xl transition-all">
@@ -291,6 +299,7 @@ superuser           # start stdio MCP server</code></pre>
                 <a href="https://github.com/fitzyracing1/Super" class="hover:text-zinc-300">GitHub Repository</a>
                 <a href="https://github.com/fitzyracing1/Super/pull/1" class="hover:text-zinc-300">PR #1 — Core Agent</a>
                 <a href="https://github.com/fitzyracing1/Super/pull/2" class="hover:text-zinc-300">PR #2 — Dev Environment</a>
+                <a href="RULES.md" class="hover:text-zinc-300">RULES.md (formal ruleset)</a>
                 <a href="CONTRIBUTING.md" class="hover:text-zinc-300">CONTRIBUTING</a>
             </div>
             <div class="mt-6 text-[10px] tracking-widest">ONE LOOK • TWO FIGHT • THREE LISTEN • FOUR BREAK • EVERY ACCEPTED UPDATE STAYS PUBLIC</div>
@@ -328,7 +337,7 @@ superuser           # start stdio MCP server</code></pre>
         window.onload = function() {
             initializeTailwind();
             setupSmoothScroll();
-            console.log('%c[superuser] Site initialized with guard protocol and public PR deploy flow.', 'color:#64748b; font-size:9px');
+            console.log('%c[superuser] Site initialized with guard protocol and formal RULES.md linked.', 'color:#64748b; font-size:9px');
         };
     </script>
 </body>

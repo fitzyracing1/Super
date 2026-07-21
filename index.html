@@ -260,6 +260,29 @@ superuser           # start stdio MCP server</code></pre>
         </div>
     </section>
 
+    <!-- NEW SECTION: Accepted PRs update the public site -->
+    <section class="max-w-screen-xl mx-auto px-6 py-16 border-t border-white/10">
+        <div class="max-w-3xl mx-auto text-center">
+            <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-2xl border border-red-500/30 bg-red-950/20 mb-6">
+                <i class="fas fa-sync-alt text-red-400"></i>
+                <span class="text-xs font-mono tracking-[3px] text-red-400 font-semibold">PUBLIC DEPLOY ON MERGE</span>
+            </div>
+            
+            <h2 class="section-header tracking-tighter mb-4">On accepted PR → we write, it stays public.</h2>
+            
+            <p class="text-xl text-zinc-400 max-w-2xl mx-auto">Edit the site or agent code, open a PR, get it accepted and merged to <span class="font-mono">main</span>. GitHub Pages automatically redeploys the updated site within minutes. Everything remains fully public and auditable — no private deploys, no hidden state. The same "One look two fight three listen four break" discipline that protects the agent protects every public update.</p>
+            
+            <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="CONTRIBUTING.md" class="inline-flex items-center justify-center gap-x-3 px-8 py-3.5 text-sm font-semibold border border-white/30 hover:bg-white/5 rounded-3xl transition-all">
+                    <span>Read CONTRIBUTING.md</span>
+                </a>
+                <a href="https://github.com/fitzyracing1/Super/pulls" target="_blank" class="inline-flex items-center justify-center gap-x-3 px-8 py-3.5 text-sm font-semibold bg-white text-zinc-950 rounded-3xl hover:bg-zinc-100 transition-all">
+                    <span>View Open PRs</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer / Status -->
     <footer class="border-t border-white/10 py-10">
         <div class="max-w-screen-xl mx-auto px-6 text-center text-xs text-zinc-500">
@@ -268,8 +291,9 @@ superuser           # start stdio MCP server</code></pre>
                 <a href="https://github.com/fitzyracing1/Super" class="hover:text-zinc-300">GitHub Repository</a>
                 <a href="https://github.com/fitzyracing1/Super/pull/1" class="hover:text-zinc-300">PR #1 — Core Agent</a>
                 <a href="https://github.com/fitzyracing1/Super/pull/2" class="hover:text-zinc-300">PR #2 — Dev Environment</a>
+                <a href="CONTRIBUTING.md" class="hover:text-zinc-300">CONTRIBUTING</a>
             </div>
-            <div class="mt-6 text-[10px] tracking-widest">ONE LOOK • TWO FIGHT • THREE LISTEN • FOUR BREAK</div>
+            <div class="mt-6 text-[10px] tracking-widest">ONE LOOK • TWO FIGHT • THREE LISTEN • FOUR BREAK • EVERY ACCEPTED UPDATE STAYS PUBLIC</div>
         </div>
     </footer>
 
@@ -304,7 +328,7 @@ superuser           # start stdio MCP server</code></pre>
         window.onload = function() {
             initializeTailwind();
             setupSmoothScroll();
-            console.log('%c[superuser] Site initialized with guard protocol.', 'color:#64748b; font-size:9px');
+            console.log('%c[superuser] Site initialized with guard protocol and public PR deploy flow.', 'color:#64748b; font-size:9px');
         };
     </script>
 </body>

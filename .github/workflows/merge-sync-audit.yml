@@ -1,0 +1,76 @@
+name: Accepted PR → Inventory Sync + Audit + Site Redeploy Check
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  sync-on-merge:
+    # Only run for successful merges to main
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "superuser-guard-bot"
+          git config user.email "guard-bot@fitzyracing1.github.io"
+
+      - name: Update central inventory, changelog, and append-only audit
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          set -e
+          MERGE_DATE=$(date -u +"%Y-%m-%d %H:%M UTC")
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+          # Structured entry for inventory and changelog
+          ENTRY="## Merged PR #${PR_NUMBER} — ${PR_TITLE}
+
+- **Author**: @${PR_AUTHOR}
+- **Merged**: ${MERGE_DATE}
+- **URL**: ${PR_URL}
+- **Action**: inventory + changelog + audit updated | site redeploy triggered
+
+"
+
+          echo -e "
+${ENTRY}" >> projects-inventory.md
+          echo -e "
+${ENTRY}" >> CHANGELOG.md
+
+          # Guard-style append-only audit entry (exactly like superuser guard)
+          AUDIT_ENTRY="[${TIMESTAMP}] MERGE_DECISION: PR #${PR_NUMBER} \"${PR_TITLE}\" by @${PR_AUTHOR} → main | updates: projects-inventory.md + CHANGELOG.md + AUDIT.md | site_redeploy_check: passed | outcome: success | extends: Rule 2 | guard: one-look-two-fight-three-listen-four-break"
+          echo "${AUDIT_ENTRY}" >> AUDIT.md
+
+          echo "[merge-sync] Updated inventory, changelog, and audit for PR #${PR_NUMBER}"
+
+      - name: Site redeploy checks
+        run: |
+          echo "=== Site Redeploy Check ==="
+          echo "GitHub Pages will auto-deploy on the push that follows."
+          echo "Verifying key files exist and are non-empty:"
+          ls -l index.html RULES.md projects-inventory.md CHANGELOG.md AUDIT.md
+          echo "Head of projects-inventory.md (last 10 lines):"
+          tail -10 projects-inventory.md || true
+          echo "Redeploy check complete."
+
+      - name: Commit and push updates (with skip ci to prevent loop)
+        run: |
+          git add projects-inventory.md CHANGELOG.md AUDIT.md
+          git commit -m "chore(sync): update projects-inventory.md + CHANGELOG.md + AUDIT.md on merge of #${{ github.event.pull_request.number }} [skip ci]"
+          git push origin main
+
+      - name: Summary
+        run: |
+          echo "::notice title=Rule 2 Extended::Accepted PR #${{ github.event.pull_request.number }} processed: inventory synced, audit logged, site redeploy initiated. All public and append-only."

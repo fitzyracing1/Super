@@ -43,8 +43,19 @@ Every time a PR is accepted and merged to `main` in any participating repo, this
 
 ---
 
+**First production merge (backfilled to reflect accepted PR under extended Rule 2)**
+
+## Merged PR #3 — feat(site): add Contact Sales & Help section with direct pricing email
+
+- **Author**: @fitzyracing1
+- **Merged**: 2026-07-21 20:13 UTC
+- **URL**: https://github.com/fitzyracing1/Super/pull/3
+- **Action**: inventory + changelog + audit updated | site redeploy triggered
+
+This PR added a professional Contact Sales & Help section to the public site (new navbar link + two-column cards with direct email CTA for pricing/enterprise inquiries). Keeps everything fully public, auditable, and aligned with the guard protocol. One look • two fight • three listen • four break.
+
 **Seed entry (this automation setup)**
 
-No production merges yet. The first real accepted PR merged to `main` will trigger the first automated inventory + audit entry.
+Automation foundation (workflow + Rule 2 docs) established prior. This backfill ensures the living central registry accurately reflects the first accepted & merged PR to `main`. All future merges (this repo + any participating ecosystem repos) will automatically trigger the full sync + audit + redeploy check.
 
 See `RULES.md` §2 and `.github/workflows/merge-sync-audit.yml` for implementation details.

@@ -14,8 +14,11 @@ This file is **append-only**. The only way to add entries is via accepted PR mer
 ### Seed (Automation Foundation)
 [2026-07-21T05:03:00Z] SEED_MERGE: Initial Rule 2 extension setup (inventory sync, changelog, append-only audit, merge-sync workflow) by @fitzyracing1 (via secure tool) → main | updates: RULES.md + projects-inventory.md + CHANGELOG.md + AUDIT.md + .github/workflows/merge-sync-audit.yml | site_redeploy_check: n/a (initial) | outcome: success | extends: Rule 2 | note: foundational commit enabling automatic sync for all future accepted PRs across repos
 
+### First production merge (PR #3, backfilled)
+[2026-07-21T20:13:09Z] MERGE_DECISION: PR #3 "feat(site): add Contact Sales & Help section with direct pricing email" by @fitzyracing1 → main | updates: projects-inventory.md + CHANGELOG.md + AUDIT.md | site_redeploy_check: passed | outcome: success | extends: Rule 2 | guard: one-look-two-fight-three-listen-four-break
+
 ---
 
-*(All future accepted PR merges to main will append their MERGE_DECISION entries here automatically. This log grows forever as an immutable public record.)*
+*(All future accepted PR merges to main will append their MERGE_DECISION entries here automatically. This log grows forever as an immutable public record. Backfill performed to ensure completeness for the first real merge under the new automation.)*
 
 See `RULES.md` §2 and the workflow for how this mirrors the superuser guard's own append-only audit.

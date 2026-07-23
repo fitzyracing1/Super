@@ -15,6 +15,7 @@ All notable changes to the Super public site, RULES.md, superuser ecosystem, and
   - New GitHub Action workflow: `.github/workflows/merge-sync-audit.yml`
 - Updated `RULES.md` Section 2 to formally document the new policy and automation
 - Updated `CONTRIBUTING.md` with section on the automatic sync flow
+- Merged PR #3: Contact Sales & Help section with direct pricing email CTA (first production merge to trigger Rule 2 sync backfill)
 
 ### Changed
 - Rule 2 now mandates inventory sync, changelog append, audit logging, and redeploy checks for every accepted merge (this repo + any of your repos adopting the pattern).

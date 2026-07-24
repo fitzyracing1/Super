@@ -37,6 +37,36 @@ Every time a PR is accepted and merged to `main` in any participating repo, this
 - **fitzyracing1/bci_interface** — Brain-computer interface experiments.
 - (Additional repos auto-added to inventory on their first merged PR or via manual ecosystem PRs)
 
+## Hardware Prototypes & BOM/Progress Tracking
+
+**New capability seeded 2026-07-23**: Simple structured tracking for ambitious hardware / prototype projects (Tesla Bot Cruiser, Open Source Spaceship, Nanocraft, Organic Spin Processor, and future ones).
+
+Fully integrated with the superuser ecosystem:
+- **Structured data**: YAML blocks + Markdown BOM/progress tables in issue bodies (machine-readable + human-friendly).
+- **Status & updates**: Via GitHub labels (`hardware-prototype`, project-specific) + comments.
+- **Phone-first updates (voice/text)**: Use official GitHub mobile app (iOS/Android) — open relevant issue → tap comment → use built-in voice dictation (microphone). No laptop needed. Perfect for workshop, field tests, or on-the-go.
+  - Example voice note: "Voice update from garage: Tesla Bot Cruiser chassis frame successfully 3D printed and vibration tested at 1500 RPM. Sourced 4x high-torque NEMA17 motors for $68 total from local supplier. Added to BOM. Overall progress bumped to 35%. Next: motor driver selection and Fusion 360 mount design."
+- **Turns into GitHub Issues**: Each major project has its own issue with sub-issue support for components/tasks. Meta tracking system in #4.
+- **Live Dashboard**: 
+  - Filter issues by label `hardware-prototype` for overview.
+  - **Recommended (user action)**: Create a GitHub Project (classic or new) named "Hardware Prototypes Tracker", add issues #4–#8 as items. Add custom fields: `Status` (single-select: Concept / Research / Early Prototyping / Testing / Complete), `Progress %` (number), `Est. BOM USD` (number), `Last Updated` (date), `Priority`. Use Table layout for BOM roll-up view, Board for Kanban workflow, Roadmap for milestones.
+  - Pin project to repo sidebar for quick access.
+- **Auditability**: All updates public. Future enhancements can parse YAML from comments/bodies via Actions to auto-update inventory or generate reports (extends Rule 2 automation).
+
+**Tracked Projects (see linked issues for full BOM tables, YAML, progress logs)**:
+
+- **#4 Hardware/Prototype Tracking + BOM/Progress System** (meta): Goal, templates, phone instructions, and ecosystem integration. Labels: hardware-prototype, bom
+- **#5 [Tesla Bot Cruiser]**: Mobile robotic cruiser platform. Vision: robust locomotion + autonomy prototype. Current: 20% (Early Prototyping). Est. BOM subtotal ~$495. High priority. Labels: hardware-prototype, tesla-bot-cruiser, bom
+- **#6 [Open Source Spaceship]**: Fully open modular spacecraft concepts. Current: 5% (Concept/High-level Design). Focus on subsystems like propulsion, ADCS, power. Labels: hardware-prototype, open-source-spaceship
+- **#7 [Nanocraft]**: Gram-scale interstellar probe / lightsail concepts (Breakthrough Starshot inspired). Current: 10% (Research & Miniaturization). Key challenges: lightsail deployment + onboard compute mass budget. Labels: hardware-prototype, nanocraft, bom
+- **#8 [Organic Spin Processor]**: Organic molecules + spintronics for next-gen low-power spin-logic processors. Current: 5% (Literature Review & Concept). Focus areas: molecular synthesis, device fab, simulation (DFT/spin dynamics). Labels: hardware-prototype, organic-spin-processor
+
+All issues include ready-to-use YAML structured data templates for scripting/automation and detailed BOM tables. Sub-issues encouraged for granular component tracking (e.g. specific motor mounts or sail deployment tests).
+
+This brings physical hardware prototyping into the same public, guard-railed, auditable workflow as software contributions. One look • two fight • three listen • four break.
+
+See issues for latest comments/updates. Voice/text updates from phone directly enrich the living tracker.
+
 ## Recent Merged PRs
 
 *(Structured entries are auto-appended here by the merge-sync-audit workflow on every successful merge to main. Newest at top or chronological append.)*

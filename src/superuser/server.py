@@ -14,6 +14,7 @@ from .config import Config, Risk
 from .guard import Guard
 from .security import CiscoAIDefense
 from .tools import github as gh_tools
+from .tools import grok as grok_tools
 from .tools import shell as shell_tools
 from .tools import system as system_tools
 
@@ -109,6 +110,45 @@ def build_server(config: Config | None = None) -> FastMCP:
             risk=Risk.HIGH,
             confirm=confirm,
             op=lambda: github_client.create_issue_comment(repo, issue_number, body),
+        )
+
+    # -- Grok / xAI (Claude can call Grok through Super) ------------------------
+
+    @mcp.tool()
+    def call_grok(
+        prompt: str,
+        system: str | None = None,
+        model: str = "grok-3",
+        max_tokens: int = 1024,
+        temperature: float = 0.7,
+        confirm: bool = False,
+    ) -> dict[str, Any]:
+        """Call Grok (xAI) from Claude via the Super MCP guard pipeline.
+
+        Phone-first: uses only requests (already a core dep). Set XAI_API_KEY
+        or GROK_API_KEY in the environment before starting the server.
+
+        Risk is MEDIUM because it is an external paid API call; confirm=true
+        is required when approval_required_at <= MEDIUM.
+        """
+        return guard.run(
+            tool_name="call_grok",
+            args={
+                "prompt": prompt,
+                "system": system,
+                "model": model,
+                "max_tokens": max_tokens,
+                "temperature": temperature,
+            },
+            risk=Risk.MEDIUM,
+            confirm=confirm,
+            op=lambda: grok_tools.call_grok(
+                prompt,
+                system=system,
+                model=model,
+                max_tokens=max_tokens,
+                temperature=temperature,
+            ),
         )
 
     # -- Introspection -----------------------------------------------------------

@@ -3,11 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary SEO -->
     <title>superuser • One look two fight three listen four break</title>
+    <meta name="description" content="superuser is a governable, auditable MCP agent that gives AI real sysadmin powers behind a strict four-phase guard protocol: One look, two fight, three listen, four break. Enterprise-ready, fully public, and built for safety.">
+    <meta name="keywords" content="MCP agent, Model Context Protocol, AI sysadmin, guard protocol, Cisco AI Defense, Duo Agentic Identity, enterprise AI security, superuser">
+    <meta name="author" content="fitzyracing1">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://fitzyracing1.github.io/Super/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fitzyracing1.github.io/Super/">
+    <meta property="og:title" content="superuser • One look two fight three listen four break">
+    <meta property="og:description" content="Real sysadmin powers for AI agents. Wrapped in layers that actually ship. Governable, auditable, enterprise-ready MCP agent with a four-phase security mantra.">
+    <meta property="og:site_name" content="superuser MCP Agent">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="superuser • One look two fight three listen four break">
+    <meta name="twitter:description" content="Real sysadmin powers for AI agents. Wrapped in layers that actually ship. Governable, auditable, enterprise-ready MCP agent.">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "superuser",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Cross-platform",
+      "description": "A governable, auditable MCP agent that gives AI real sysadmin powers behind a four-phase guard protocol (One look, two fight, three listen, four break).",
+      "url": "https://fitzyracing1.github.io/Super/",
+      "author": {
+        "@type": "Person",
+        "name": "fitzyracing1",
+        "url": "https://github.com/fitzyracing1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "softwareVersion": "1.0"
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
         
         body { font-family: 'Inter', system_ui, sans-serif; }
         .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; letter-spacing: -0.025em; }
@@ -314,7 +358,7 @@ superuser           # start stdio MCP server</code></pre>
                 <p class="text-zinc-300 mb-2">For pricing, enterprise licensing, priority support, custom integrations, or volume deployments of the superuser MCP agent.</p>
                 <p class="text-sm text-zinc-500 mb-6">Direct line to the maintainer. Fast responses for commercial inquiries.</p>
 
-                <a href="mailto:fitzyracing1@gmail.com?subject=superuser%20MCP%20Pricing%20%26%20Enterprise%20Inquiry&amp;body=Hello%2C%20I'm%20interested%20in%20pricing%20and%20details%20for%20the%20superuser%20MCP%20agent.%0A%0AProject%3A%20%0AUse%20case%3A%20%0AExpected%20scale%3A%20" 
+                <a href="mailto:fitzyracing1@gmail.com?subject=superuser%20MCP%20Pricing%20%26%20Enterprise%20Inquiry&body=Hello%2C%20I'm%20interested%20in%20pricing%20and%20details%20for%20the%20superuser%20MCP%20agent.%0A%0AProject%3A%20%0AUse%20case%3A%20%0AExpected%20scale%3A%20" 
                    class="group inline-flex w-full items-center justify-center gap-x-3 px-8 py-4 text-base font-semibold bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-600 text-white rounded-2xl transition-all active:scale-[0.985] shadow-lg shadow-red-950/50">
                     <span>Email for Pricing</span>
                     <i class="fas fa-arrow-right transition-transform group-hover:translate-x-0.5"></i>
@@ -381,12 +425,12 @@ superuser           # start stdio MCP server</code></pre>
         function initializeTailwind() {
             const cards = document.querySelectorAll('.feature-card, .guard-step');
             cards.forEach(card => {
-                card.addEventListener('mousemove', (e => {
+                card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
                     const x = ((e.clientX - rect.left) / rect.width) * 100;
                     const y = ((e.clientY - rect.top) / rect.height) * 100;
                     card.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.06) 0%, transparent 60%)`;
-                }));
+                });
                 card.addEventListener('mouseleave', () => { card.style.background = ''; });
             });
         }

@@ -1,5 +1,7 @@
 # Super
 
+<!-- mcp-name: io.github.fitzyracing1/superuser -->
+
 A **permission-gated superuser agent** exposed over the [Model Context Protocol
 (MCP)](https://modelcontextprotocol.io). It gives an AI agent real
 system-administration powers on this machine — running shell commands, checking

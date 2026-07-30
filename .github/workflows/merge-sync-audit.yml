@@ -34,20 +34,28 @@ jobs:
           MERGE_DATE=$(date -u +"%Y-%m-%d %H:%M UTC")
           TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-          # Structured entry for inventory and changelog
-          ENTRY="## Merged PR #${PR_NUMBER} — ${PR_TITLE}
+          # Structured entry for inventory and changelog (heredoc = YAML-safe)
+          cat >> projects-inventory.md << EOF
+
+## Merged PR #${PR_NUMBER} — ${PR_TITLE}
 
 - **Author**: @${PR_AUTHOR}
 - **Merged**: ${MERGE_DATE}
 - **URL**: ${PR_URL}
 - **Action**: inventory + changelog + audit updated | site redeploy triggered
 
-"
+EOF
 
-          echo -e "
-${ENTRY}" >> projects-inventory.md
-          echo -e "
-${ENTRY}" >> CHANGELOG.md
+          cat >> CHANGELOG.md << EOF
+
+## Merged PR #${PR_NUMBER} — ${PR_TITLE}
+
+- **Author**: @${PR_AUTHOR}
+- **Merged**: ${MERGE_DATE}
+- **URL**: ${PR_URL}
+- **Action**: inventory + changelog + audit updated | site redeploy triggered
+
+EOF
 
           # Guard-style append-only audit entry (exactly like superuser guard)
           AUDIT_ENTRY="[${TIMESTAMP}] MERGE_DECISION: PR #${PR_NUMBER} \"${PR_TITLE}\" by @${PR_AUTHOR} → main | updates: projects-inventory.md + CHANGELOG.md + AUDIT.md | site_redeploy_check: passed | outcome: success | extends: Rule 2 | guard: one-look-two-fight-three-listen-four-break"
@@ -68,7 +76,7 @@ ${ENTRY}" >> CHANGELOG.md
       - name: Commit and push updates (with skip ci to prevent loop)
         run: |
           git add projects-inventory.md CHANGELOG.md AUDIT.md
-          git commit -m "chore(sync): update projects-inventory.md + CHANGELOG.md + AUDIT.md on merge of #${{ github.event.pull_request.number }} [skip ci]"
+          git commit -m "chore(sync): update projects-inventory.md + CHANGELOG.md + AUDIT.md on merge of #${{ github.event.pull_request.number }} [skip ci]" || echo "No changes to commit"
           git push origin main
 
       - name: Summary

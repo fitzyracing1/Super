@@ -3,11 +3,18 @@ name: Accepted PR → Inventory Sync + Audit + Site Redeploy Check
 on:
   pull_request:
     types: [closed]
+  push:
+    branches: [main]
 
 jobs:
   sync-on-merge:
-    # Only run for successful merges to main
-    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
+    # Run only for successful merges to main (either PR closed+merged or a merge-commit push)
+    if: >
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.merged == true &&
+       github.event.pull_request.base.ref == 'main') ||
+      (github.event_name == 'push' &&
+       contains(github.event.head_commit.message, 'Merge pull request'))
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -23,14 +30,47 @@ jobs:
           git config user.name "superuser-guard-bot"
           git config user.email "guard-bot@fitzyracing1.github.io"
 
-      - name: Update central inventory, changelog, and append-only audit
+      - name: Extract PR metadata (works for both event types)
+        id: meta
         env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           set -e
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+            echo "pr_title=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
+            echo "pr_author=${{ github.event.pull_request.user.login }}" >> $GITHUB_OUTPUT
+            echo "pr_url=${{ github.event.pull_request.html_url }}" >> $GITHUB_OUTPUT
+          else
+            # Parse classic "Merge pull request #N from ..." message
+            MSG="${{ github.event.head_commit.message }}"
+            PR_NUMBER=$(echo "$MSG" | grep -oP 'Merge pull request #\K[0-9]+' || true)
+            if [ -z "$PR_NUMBER" ]; then
+              echo "Could not extract PR number from commit message; skipping."
+              exit 0
+            fi
+            echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+            # Title is usually the first line after the merge header; keep simple
+            TITLE=$(echo "$MSG" | head -n1 | sed 's/Merge pull request #[0-9]* from .*//')
+            echo "pr_title=${TITLE:-Merged PR #$PR_NUMBER}" >> $GITHUB_OUTPUT
+            # Author from commit or default
+            echo "pr_author=${{ github.event.head_commit.author.username || github.actor }}" >> $GITHUB_OUTPUT
+            echo "pr_url=https://github.com/${{ github.repository }}/pull/$PR_NUMBER" >> $GITHUB_OUTPUT
+          fi
+          echo "Extracted PR #${{ steps.meta.outputs.pr_number }}"
+
+      - name: Update central inventory, changelog, and append-only audit
+        env:
+          PR_NUMBER: ${{ steps.meta.outputs.pr_number }}
+          PR_TITLE: ${{ steps.meta.outputs.pr_title }}
+          PR_AUTHOR: ${{ steps.meta.outputs.pr_author }}
+          PR_URL: ${{ steps.meta.outputs.pr_url }}
+        run: |
+          set -e
+          if [ -z "$PR_NUMBER" ]; then
+            echo "No PR number; nothing to do."
+            exit 0
+          fi
           MERGE_DATE=$(date -u +"%Y-%m-%d %H:%M UTC")
           TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
@@ -44,14 +84,21 @@ jobs:
 
 "
 
-          echo -e "
-${ENTRY}" >> projects-inventory.md
-          echo -e "
-${ENTRY}" >> CHANGELOG.md
+          # Avoid duplicate entries if already present (idempotent)
+          if ! grep -q "Merged PR #${PR_NUMBER} —" projects-inventory.md 2>/dev/null; then
+            echo -e "\n${ENTRY}" >> projects-inventory.md
+            echo -e "\n${ENTRY}" >> CHANGELOG.md
+          else
+            echo "Entry for PR #${PR_NUMBER} already present; skipping inventory/changelog append."
+          fi
 
           # Guard-style append-only audit entry (exactly like superuser guard)
           AUDIT_ENTRY="[${TIMESTAMP}] MERGE_DECISION: PR #${PR_NUMBER} \"${PR_TITLE}\" by @${PR_AUTHOR} → main | updates: projects-inventory.md + CHANGELOG.md + AUDIT.md | site_redeploy_check: passed | outcome: success | extends: Rule 2 | guard: one-look-two-fight-three-listen-four-break"
-          echo "${AUDIT_ENTRY}" >> AUDIT.md
+          if ! grep -q "MERGE_DECISION: PR #${PR_NUMBER}" AUDIT.md 2>/dev/null; then
+            echo "${AUDIT_ENTRY}" >> AUDIT.md
+          else
+            echo "Audit entry for PR #${PR_NUMBER} already present; skipping."
+          fi
 
           echo "[merge-sync] Updated inventory, changelog, and audit for PR #${PR_NUMBER}"
 
@@ -60,17 +107,21 @@ ${ENTRY}" >> CHANGELOG.md
           echo "=== Site Redeploy Check ==="
           echo "GitHub Pages will auto-deploy on the push that follows."
           echo "Verifying key files exist and are non-empty:"
-          ls -l index.html RULES.md projects-inventory.md CHANGELOG.md AUDIT.md
-          echo "Head of projects-inventory.md (last 10 lines):"
-          tail -10 projects-inventory.md || true
+          ls -l index.html RULES.md projects-inventory.md CHANGELOG.md AUDIT.md || true
+          echo "Head of projects-inventory.md (last 15 lines):"
+          tail -15 projects-inventory.md || true
           echo "Redeploy check complete."
 
       - name: Commit and push updates (with skip ci to prevent loop)
         run: |
-          git add projects-inventory.md CHANGELOG.md AUDIT.md
-          git commit -m "chore(sync): update projects-inventory.md + CHANGELOG.md + AUDIT.md on merge of #${{ github.event.pull_request.number }} [skip ci]"
+          git add projects-inventory.md CHANGELOG.md AUDIT.md || true
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "chore(sync): update projects-inventory.md + CHANGELOG.md + AUDIT.md on merge of #${{ steps.meta.outputs.pr_number }} [skip ci]"
           git push origin main
 
       - name: Summary
         run: |
-          echo "::notice title=Rule 2 Extended::Accepted PR #${{ github.event.pull_request.number }} processed: inventory synced, audit logged, site redeploy initiated. All public and append-only."
+          echo "::notice title=Rule 2 Extended::Accepted PR #${{ steps.meta.outputs.pr_number }} processed: inventory synced, audit logged, site redeploy initiated. All public and append-only."

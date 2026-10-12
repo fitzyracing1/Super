@@ -26,3 +26,7 @@ This GitHub Pages site is the public face of the project. The real implementatio
 - Branch: `cursor/superuser-mcp-agent-1ae7`
 
 Built for safety at scale. Designed for the frontier.
+## Documentation
+
+- In-repo docs: [docs/](docs/index.md)
+- Wiki: [https://github.com/fitzyracing1/Super/wiki](https://github.com/fitzyracing1/Super/wiki)

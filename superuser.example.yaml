@@ -1,0 +1,75 @@
+# Superuser agent configuration. Copy to a file and pass with
+# `superuser --config <file>` or set SUPERUSER_CONFIG.
+
+# Human accountable for this agent's actions (recorded in every audit entry).
+human_owner: "jane.doe@example.com"
+
+# Minimum risk level that triggers the human-approval gate.
+# One of: LOW, MEDIUM, HIGH, CRITICAL.
+approval_required_at: MEDIUM
+
+# Base commands that are treated as LOW risk (no approval needed).
+command_allowlist:
+  - ls
+  - cat
+  - df
+  - uptime
+  - whoami
+  - uname
+
+# Extra dangerous patterns to reject (merged with the built-in denylist).
+command_denylist:
+  - "rm -rf /*"
+
+command_timeout_seconds: 60
+audit_log_path: "superuser-audit.log"
+
+cisco:
+  enabled: true
+  mode: enforce            # enforce | monitor | off
+  # Prefer setting secrets via environment variables, not in this file:
+  #   AI_DEFENSE_INSPECTION_API_KEY
+  #   AI_DEFENSE_API_MODE_LLM_ENDPOINT / AI_DEFENSE_API_MODE_LLM_API_KEY
+  # agentsec_config_path: "agentsec.yaml"
+
+# Cisco Duo Agentic Identity: per-tool-call authorization (OAuth 2.1).
+# "Duo decides, the gateway enforces." Prefer env vars for client secrets.
+duo:
+  enabled: false
+  mode: enforce            # enforce | monitor | off
+  agent_id: "superuser-agent-1"
+  # token_url: "https://<tenant>.duosecurity.com/oauth/v1/token"
+  # client_id: "..."       # prefer DUO_CLIENT_ID env var
+  # client_secret: "..."   # prefer DUO_CLIENT_SECRET env var
+  # resource: "https://superuser.internal"   # RFC 8707 audience
+  # authorization_url: "https://.../authorize"  # optional decision endpoint
+  scopes:
+    - superuser.read
+    - superuser.exec
+  # Scope required to invoke each tool (scope-based access control):
+  tool_scopes:
+    system_status: superuser.read
+    disk_usage: superuser.read
+    list_processes: superuser.read
+    github_get_repo: superuser.read
+    github_list_issues: superuser.read
+    run_command: superuser.exec
+    github_create_issue_comment: superuser.write
+
+# Stripe usage-based billing: meter each successful tool call.
+stripe:
+  enabled: false
+  # api_key: "sk_live_..."   # prefer STRIPE_API_KEY env var
+  # customer_id: "cus_..."   # prefer STRIPE_CUSTOMER_ID env var
+  event_name: superuser_tool_call
+  default_value: 1
+  # Charge more for higher-risk actions:
+  per_tool_values:
+    run_command: 5
+    github_create_issue_comment: 3
+
+github:
+  # Prefer GITHUB_TOKEN env var over putting the token here.
+  allowed_repos:
+    - "your-org/your-repo"
+  allow_writes: false

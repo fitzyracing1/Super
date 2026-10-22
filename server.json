@@ -1,0 +1,71 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fitzyracing1/superuser",
+  "description": "Permission-gated superuser (sysadmin) MCP agent with enterprise guardrails and audit.",
+  "repository": {
+    "url": "https://github.com/fitzyracing1/Super",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "superuser",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "SUPERUSER_HUMAN_OWNER",
+          "description": "Human accountable for the agent's actions (recorded in every audit entry).",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "SUPERUSER_APPROVAL_AT",
+          "description": "Minimum risk level that triggers the human-approval gate: LOW, MEDIUM, HIGH, or CRITICAL.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "AI_DEFENSE_INSPECTION_API_KEY",
+          "description": "Cisco AI Defense Inspection API key for runtime tool-call/response inspection.",
+          "isRequired": false,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "DUO_TOKEN_URL",
+          "description": "Cisco Duo OAuth 2.1 token endpoint (client-credentials) for per-tool-call authorization.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "DUO_CLIENT_ID",
+          "description": "Cisco Duo OAuth client ID for the agent's non-human identity.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "DUO_CLIENT_SECRET",
+          "description": "Cisco Duo OAuth client secret.",
+          "isRequired": false,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "STRIPE_API_KEY",
+          "description": "Stripe secret API key for usage-based (metered) billing.",
+          "isRequired": false,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}

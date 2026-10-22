@@ -1,0 +1,16 @@
+# Cisco AI Defense Agent Runtime (agentsec) configuration.
+# Copy to agentsec.yaml and point AI_DEFENSE_AGENTSEC_CONFIG at it, or let the
+# agent build API-mode config from environment variables instead.
+#
+# Values support ${VAR} substitution from the environment.
+
+api_mode:
+  llm:
+    # "enforce" blocks policy violations; "monitor" logs only; "off" disables.
+    mode: enforce
+    endpoint: ${AI_DEFENSE_API_MODE_LLM_ENDPOINT}
+    api_key: ${AI_DEFENSE_API_MODE_LLM_API_KEY}
+  mcp:
+    mode: enforce
+    endpoint: ${AI_DEFENSE_API_MODE_MCP_ENDPOINT}
+    api_key: ${AI_DEFENSE_API_MODE_MCP_API_KEY}

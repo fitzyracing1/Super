@@ -13,6 +13,9 @@ runtime inspection of every tool call and response.
 The design goal is the version of a "superuser agent" you can actually ship:
 powerful, but safe, auditable, and compatible with enterprise guardrails.
 
+> **Landing site:** https://fitzyracing1.github.io/super-landing/ (source: [fitzyracing1/super-landing](https://github.com/fitzyracing1/super-landing)).
+> The previous Pages site in this repo is preserved at tag `site-v1` / branch `site-archive`.
+
 ## Why it's built this way
 
 An agent that can do *anything* as root is a liability, not a product. Buyers
@@ -75,6 +78,15 @@ logged and never block or fail the tool call (results are annotated
 
 ## Install
 
+Not yet on PyPI. Install straight from git:
+
+```bash
+pip install "superuser @ git+https://github.com/fitzyracing1/Super.git"
+pip install "superuser[all] @ git+https://github.com/fitzyracing1/Super.git"   # + Cisco AI Defense + Stripe SDKs
+```
+
+From a clone:
+
 Requires Python 3.10+.
 
 ```bash
@@ -116,6 +128,18 @@ If the SDK is not installed or no credentials are set, the agent still runs but
 every result is annotated `protected: false` / `UNPROTECTED` — the gap is never
 silent. In `enforce` mode, inspection errors **fail closed** (the call is
 blocked); in `monitor` mode they fail open (logged, allowed).
+
+## Environment variables
+
+| Area | Variables |
+|------|-----------|
+| Core | `SUPERUSER_CONFIG`, `SUPERUSER_HUMAN_OWNER`, `SUPERUSER_APPROVAL_AT`, `SUPERUSER_COMMAND_TIMEOUT`, `SUPERUSER_AUDIT_LOG` |
+| Cisco AI Defense | `AI_DEFENSE_ENABLED` (default `true`; set `false` for local dev), `AI_DEFENSE_MODE`, `AI_DEFENSE_INSPECTION_API_KEY`, `AI_DEFENSE_API_MODE_LLM_ENDPOINT`, `AI_DEFENSE_API_MODE_LLM_API_KEY`, `AI_DEFENSE_AGENTSEC_CONFIG` |
+| Cisco Duo | `DUO_ENABLED`, `DUO_MODE`, `DUO_AGENT_ID`, `DUO_TOKEN_URL`, `DUO_CLIENT_ID`, `DUO_CLIENT_SECRET`, `DUO_AUTHORIZATION_URL`, `DUO_RESOURCE`, `DUO_SCOPES` |
+| Stripe | `STRIPE_ENABLED`, `STRIPE_API_KEY`, `STRIPE_CUSTOMER_ID`, `STRIPE_METER_EVENT_NAME`, `STRIPE_DEFAULT_VALUE` |
+| GitHub | `GITHUB_TOKEN`, `GITHUB_ALLOWED_REPOS`, `GITHUB_ALLOW_WRITES`, `GITHUB_API_URL` |
+
+With no keys set the server still runs: Duo and Stripe are off by default, and Cisco AI Defense runs unprotected (clearly flagged) if the SDK/keys are missing.
 
 ## Run
 

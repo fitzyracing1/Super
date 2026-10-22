@@ -20,6 +20,14 @@ def main(argv: list[str] | None = None) -> int:
         "--transport", default="stdio", choices=["stdio", "sse", "streamable-http"],
         help="MCP transport (default: stdio).",
     )
+    parser.add_argument(
+        "--http", action="store_true",
+        help="Opt-in remote bridge: MCP over streamable HTTP with bearer-token auth.",
+    )
+    parser.add_argument("--host", default=None, help="Bridge bind host (default 127.0.0.1).")
+    parser.add_argument("--port", type=int, default=None, help="Bridge port (default 8765).")
+    parser.add_argument("--token-file", default=None,
+                        help="Bridge token path (default ~/.superuser/token).")
     parser.add_argument("--log-level", default="INFO")
     parser.add_argument(
         "--check", action="store_true",
@@ -52,6 +60,19 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  Cisco Duo (authz):    {authorizer.status}")
         print(f"  Stripe billing:       {meter.status}")
         print(f"  GitHub configured:    {bool(config.github.token)}")
+        return 0
+
+    if args.http:
+        from pathlib import Path
+
+        from .bridge import DEFAULT_HOST, DEFAULT_PORT, run_bridge
+
+        run_bridge(
+            server,
+            host=args.host or DEFAULT_HOST,
+            port=args.port or DEFAULT_PORT,
+            token_path=Path(args.token_file).expanduser() if args.token_file else None,
+        )
         return 0
 
     server.run(transport=args.transport)

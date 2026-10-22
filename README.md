@@ -189,3 +189,7 @@ pytest
 ## License
 
 Apache-2.0.
+
+## Phone bridge (remote HTTP)
+
+Opt-in `superuser --http` serves MCP over streamable HTTP on 127.0.0.1 with a required bearer token. See [docs/PHONE_BRIDGE.md](docs/PHONE_BRIDGE.md).

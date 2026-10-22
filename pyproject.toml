@@ -13,7 +13,7 @@ authors = [{ name = "Super" }]
 keywords = ["mcp", "agent", "sysadmin", "superuser", "cisco", "ai-defense", "guardrails"]
 
 dependencies = [
-    "mcp>=1.2.0",
+    "mcp>=1.2.0,<2",
     "psutil>=5.9",
     "PyYAML>=6.0",
     "requests>=2.31",

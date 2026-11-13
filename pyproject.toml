@@ -9,7 +9,10 @@ description = "A permission-gated superuser (sysadmin) MCP agent with Cisco AI D
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "Apache-2.0" }
-authors = [{ name = "Super" }]
+authors = [
+    { name = "Super" },
+    { name = "Joshua Almeida" },
+]
 keywords = ["mcp", "agent", "sysadmin", "superuser", "cisco", "ai-defense", "guardrails"]
 
 dependencies = [
@@ -30,6 +33,12 @@ all = ["cisco-aidefense-sdk>=2.1.0", "stripe>=11.0"]
 
 [project.scripts]
 superuser = "superuser.__main__:main"
+
+[project.urls]
+Homepage = "https://fitzyracing1.com"
+Source = "https://github.com/fitzyracing1/Super"
+Issues = "https://github.com/fitzyracing1/Super/issues"
+Sponsor = "https://github.com/sponsors/fitzyracing1"
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -78,16 +78,20 @@ logged and never block or fail the tool call (results are annotated
 
 ## Install
 
-Not yet on PyPI. Install straight from git:
+Requires Python 3.10+. Install from [PyPI](https://pypi.org/project/superuser/):
 
 ```bash
-pip install "superuser @ git+https://github.com/fitzyracing1/Super.git"
-pip install "superuser[all] @ git+https://github.com/fitzyracing1/Super.git"   # + Cisco AI Defense + Stripe SDKs
+pip install superuser
+pip install 'superuser[all]'   # + Cisco AI Defense + Stripe SDKs
+```
+
+Or run it without a prior install:
+
+```bash
+uvx superuser
 ```
 
 From a clone:
-
-Requires Python 3.10+.
 
 ```bash
 pip install -e .              # core agent (Duo authz uses requests; no extra dep)

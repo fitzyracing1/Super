@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "superuser"
-version = "0.1.0"
+version = "0.1.1"
 description = "A permission-gated superuser (sysadmin) MCP agent with Cisco AI Defense runtime guardrails."
 readme = "README.md"
 requires-python = ">=3.10"
